@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 RUN apt update \
     && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
@@ -14,6 +14,3 @@ WORKDIR /var/www/symfony_docker
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # Installez symfony globalement
 RUN curl -sS https://get.symfony.com/cli/installer | php -- --install-dir=/usr/local/bin --filename=symfony
-
-RUN git config --global user.email "antoine.gimalac@gmail.com" \ 
-    && git config --global user.name "antoine-gimalac"

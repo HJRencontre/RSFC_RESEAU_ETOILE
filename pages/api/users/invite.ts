@@ -95,15 +95,15 @@ const handler = async (
         if (req.method === 'POST') {
             const { firstname, lastname, password, phone_number, email, role } = req.body
             
-            if (firstname === '' || typeof firstname === 'undefined') {
+            if (!firstname) {
                 return res.status(401).json('Le champs prénom doit être rempli')
             }
 
-            if (lastname === '' || typeof lastname === 'undefined') {
+            if (!lastname) {
                 return res.status(401).json('Le champs nom de famille doit être rempli')
             }
 
-            if (phone_number === '' || typeof phone_number === 'undefined') {
+            if (!phone_number) {
                 return res.status(401).json('Le champs numéro de téléphone doit être rempli')
             }
 
@@ -133,7 +133,7 @@ const handler = async (
                     from: 'onboarding@resend.dev',
                     to: email,
                     subject: 'Création de compte Réseau Etoile (Red Star)',
-                    html: `<p>Bienvenue sur le réseau étoile</p><p>Votre e-mail : ${email}</p><p>Mot de passe : ${password}</p>`
+                    html: `<p>Bienvenue sur le réseau étoile</p><p>Votre e-mail : ${email}</p><p>Mot de passe : ${password}</p><p>N'oubliez pas de modifier votre mot de passe après la première connexion</p>`
                   });
                 return res.status(200).json('L\'utilisateur à bien été créée')
             });

@@ -1,0 +1,9 @@
+# Projet symfony Docker Antoine
+
+## Pour crée l'image Docker et le lancée
+docker-compose up -d --build
+
+## Pour crée la base de données merci de rentrée ces deux commandes et faite entré pour la deuxième commande
+symfony console make:migration
+
+symfony console doctrine:migrations:migrate

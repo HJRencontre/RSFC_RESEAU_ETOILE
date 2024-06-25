@@ -35,6 +35,6 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        working-directory: ./api
+        working-directory: ./back
         run: |
           composer install --prefer-dist --no-progress --no-suggest

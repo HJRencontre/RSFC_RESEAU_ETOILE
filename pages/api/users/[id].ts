@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sql } from '@vercel/postgres';
 import { verifyToken } from '../verifyToken';
+import { sql } from '@vercel/postgres';
+import bcrypt from 'bcryptjs';
 
 /**
  * @swagger
@@ -82,6 +83,50 @@ import { verifyToken } from '../verifyToken';
  *             schema:
  *               type: string
  *               example: "Internal Server Error"
+ *   put:
+ *     tags: ['users']
+ *     summary: Edit user's password
+ *     description: CHange user password.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 example: 654321
+ *               confirm_password:
+ *                 type: string
+ *                 example: 654321
+ *             required:
+ *               - password
+ *               - confirm_password
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User successfully edited
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "L'utilisateur à bien été modifié"
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Internal Server Error"
  */
 
 
@@ -111,6 +156,29 @@ const handler = async (
                 const rows      = result.rows
     
                 return res.status(200).json('L\'utilisateur à bien été supprimé.')
+            }
+            if (req.method === 'PUT') {
+                
+                const { password, confirm_password } = req.body
+
+                if (!password || !confirm_password) {
+                    return res.status(401).json('Il manque un paramètre');
+                }
+
+                if (password != confirm_password) {
+                    return res.status(401).json('Les deux mots de passes ne correspondent pas');
+                }
+
+                bcrypt.hash(password, 10, async (err, hash) => {
+                    if (err) {
+                        console.error('Erreur lors du hachage du mot de passe:', err)
+                        return
+                    }
+    
+                    const result = await sql`UPDATE users SET password = ${hash} WHERE id = ${id}`
+    
+                    return res.status(200).json('L\'utilisateur à bien été modifié')
+                });
             }
         }
     } catch (error) {

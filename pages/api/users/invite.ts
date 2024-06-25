@@ -1,13 +1,18 @@
+import { verifyToken } from '../verifyToken';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 
 /**
  * @swagger
- * /api/users/register:
+ * /api/users/invite:
  *   post:
  *     tags: ['users']
- *     summary: Create a new user
+ *     summary: Create a new user by sending them an e-mail
  *     description: Creates a new user with the given details.
  *     security: []
  *     requestBody:
@@ -81,15 +86,15 @@ import bcrypt from 'bcryptjs';
  *                   summary: Server Error
  *                   value: "Internal Server Error"
  */
-export default async function handler(
+const handler = async (
     req: NextApiRequest,
     res: NextApiResponse,
-) {
+) => {
     
     try {
         if (req.method === 'POST') {
             const { firstname, lastname, password, phone_number, email, role } = req.body
-
+            
             if (firstname === '' || typeof firstname === 'undefined') {
                 return res.status(401).json('Le champs prénom doit être rempli')
             }
@@ -105,7 +110,7 @@ export default async function handler(
             if (role !== 'ADMIN' && role !== 'PARTNER_REPRESENTATIVE') {
                 return res.status(401).json('Le role ne peut pas être autre chose que ADMIN ou PARTNER_REPRESENTATIVE')
             }
-
+            
             if (!isEmail(email)) {
                 return res.status(401).json( 'L\'email saisie est incorrect' )
             }
@@ -124,6 +129,12 @@ export default async function handler(
 
                 const result = await sql`INSERT INTO users (firstname, lastname, password, phone_number, email, role) VALUES (${firstname}, ${lastname}, ${hash}, ${phone_number}, ${email}, ${role}) RETURNING id`
 
+                resend.emails.send({
+                    from: 'onboarding@resend.dev',
+                    to: email,
+                    subject: 'Création de compte Réseau Etoile (Red Star)',
+                    html: `<p>Bienvenue sur le réseau étoile</p><p>Votre e-mail : ${email}</p><p>Mot de passe : ${password}</p>`
+                  });
                 return res.status(200).json('L\'utilisateur à bien été créée')
             });
         }
@@ -146,3 +157,5 @@ function isEmail(email: string):boolean
     console.log(serchfind)
     return serchfind
 }
+
+export default verifyToken(handler, 'ADMIN');

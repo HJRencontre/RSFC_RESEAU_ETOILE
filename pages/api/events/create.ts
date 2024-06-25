@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 
 /**
  * @swagger
- * /api/event/create:
+ * /api/events/create:
  *   post:
  *     tags: ['events']
  *     summary: Create a new event

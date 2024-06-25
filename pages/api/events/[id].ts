@@ -4,7 +4,7 @@ import { verifyToken } from '../verifyToken';
 
 /**
  * @swagger
- * /api/event/{id}:
+ * /api/events/{id}:
  *   get:
  *     tags: ['events']
  *     summary: Get an event

@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 
 /**
  * @swagger
- * /api/business-segment/create:
+ * /api/business-segments/create:
  *   post:
  *     tags: ['business_segments']
  *     summary: Create a new business segment

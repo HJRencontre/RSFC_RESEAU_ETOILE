@@ -5,7 +5,7 @@ import { verifyToken } from '../verifyToken';
 
 /**
  * @swagger
- * /api/partner-contact/{id}:
+ * /api/partner-contacts/{id}:
  *   get:
  *     tags: ['partners_contacts']
  *     summary: Get a partner contact

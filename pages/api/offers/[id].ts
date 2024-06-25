@@ -4,7 +4,7 @@ import { verifyToken } from '../verifyToken';
 
 /**
  * @swagger
- * /api/offer/{id}:
+ * /api/offers/{id}:
  *   get:
  *     tags: ['offers']
  *     summary: Get an offer

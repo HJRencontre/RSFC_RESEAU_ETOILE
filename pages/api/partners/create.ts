@@ -2,10 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken } from '../verifyToken';
 import { sql } from '@vercel/postgres';
 
-
 /**
  * @swagger
- * /api/partner/create:
+ * /api/partners/create:
  *   post:
  *     tags: ['partners']
  *     summary: Create a new partner

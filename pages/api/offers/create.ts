@@ -5,7 +5,7 @@ import { sql } from '@vercel/postgres';
 
 /**
  * @swagger
- * /api/offer/create:
+ * /api/offers/create:
  *   post:
  *     tags: ['offers']
  *     summary: Create a new offer

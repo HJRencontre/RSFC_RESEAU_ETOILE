@@ -4,7 +4,7 @@ import { verifyToken } from '../verifyToken';
 
 /**
  * @swagger
- * /api/business-segment/{id}:
+ * /api/business-segments/{id}:
  *   get:
  *     tags: ['business_segments']
  *     summary: Get a business segment

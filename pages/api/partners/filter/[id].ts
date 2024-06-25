@@ -2,6 +2,52 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken } from '../../verifyToken';
 import { sql } from '@vercel/postgres';
 
+/**
+ * @swagger
+ * /api/partners/filter/{id}:
+ *   get:
+ *     tags: ['partners']
+ *     summary: Get a partner
+ *     description: Retrieves a partner by ID.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the partner
+ *     responses:
+ *       200:
+ *         description: A partner object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 partner:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: "1"
+ *                     name:
+ *                       type: string
+ *                       example: "Partner Name"
+ *                     is_deleted:
+ *                       type: boolean
+ *                       example: false
+ *       500:
+ *         description: Error message
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Le partenaire n'existe pas"
+ *   
+ */
+
 const handler = async (
     req: NextApiRequest,
     res: NextApiResponse,

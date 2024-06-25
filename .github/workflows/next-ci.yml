@@ -20,13 +20,13 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: ./front
+        working-directory: .
         run: npm install
 
       - name: Run lint
-        working-directory: ./front
+        working-directory: .
         run: npm run lint
 
       - name: Build project
-        working-directory: ./front
+        working-directory: .
         run: npm run build

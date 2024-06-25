@@ -96,15 +96,15 @@ import bcrypt from 'bcryptjs';
  *           schema:
  *             type: object
  *             properties:
- *               password:
+ *               old_password:
  *                 type: string
  *                 example: 654321
- *               confirm_password:
+ *               new_password:
  *                 type: string
  *                 example: 654321
  *             required:
- *               - password
- *               - confirm_password
+ *               - old_password
+ *               - new_password
  *     parameters:
  *       - in: path
  *         name: id
@@ -159,17 +159,30 @@ const handler = async (
             }
             if (req.method === 'PUT') {
                 
-                const { password, confirm_password } = req.body
+                const { old_password, new_password } = req.body
 
-                if (!password || !confirm_password) {
+                if (!old_password || !new_password) {
                     return res.status(401).json('Il manque un paramètre');
                 }
 
-                if (password != confirm_password) {
+                if (old_password != new_password) {
                     return res.status(401).json('Les deux mots de passes ne correspondent pas');
                 }
 
-                bcrypt.hash(password, 10, async (err, hash) => {
+                const result = await sql`SELECT * FROM users WHERE is_deleted = false AND id = ${id}`;
+                const user = result.rows[0]
+
+                const isPasswordMatch   = await bcrypt.compare(old_password, user.password)
+
+                if (!isPasswordMatch) {
+                    return res.status(401).json('L\'ancien mot de passe ne correspond pas.');
+                }
+
+                if (old_password === new_password) {
+                    return res.status(401).json('Les deux mots de passes sont identiques.');
+                }
+
+                bcrypt.hash(new_password, 10, async (err, hash) => {
                     if (err) {
                         console.error('Erreur lors du hachage du mot de passe:', err)
                         return

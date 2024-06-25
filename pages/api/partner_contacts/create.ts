@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 
 /**
  * @swagger
- * /api/partner-contacts/create:
+ * /api/partners_contacts/create:
  *   post:
  *     tags: ['partners_contacts']
  *     summary: Create a new partner contact request

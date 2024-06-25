@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 
 /**
  * @swagger
- * /api/partner-contacts/getAll:
+ * /api/partners_contacts/getAll:
  *   get:
  *     tags: ['partners_contacts']
  *     summary: Get all partner contact requests

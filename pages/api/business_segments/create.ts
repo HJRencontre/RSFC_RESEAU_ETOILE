@@ -2,6 +2,64 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken } from '../verifyToken';
 import { sql } from '@vercel/postgres';
 
+/**
+ * @swagger
+ * /api/business-segments/create:
+ *   post:
+ *     tags: ['business_segments']
+ *     summary: Create a new business segment
+ *     description: Creates a new business segment with the given label.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               label:
+ *                 type: string
+ *                 example: "Technology"
+ *             required:
+ *               - label
+ *     responses:
+ *       200:
+ *         description: Business segment successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Type de métier créée"
+ *       401:
+ *         description: Unauthorized or validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               examples:
+ *                 missingLabel:
+ *                   summary: Missing Label
+ *                   value: "Nous avons besoin d'un label pour créer ce type de données"
+ *                 labelExists:
+ *                   summary: Label Exists
+ *                   value: "Le label saisie est déjà utilisé"
+ *       500:
+ *         description: Server error or method not allowed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               examples:
+ *                 methodNotAllowed:
+ *                   summary: Method Not Allowed
+ *                   value: "La route n'acceptes que les POST"
+ *                 serverError:
+ *                   summary: Server Error
+ *                   value: "Internal Server Error"
+ */
+
+
 const handler = async(
     req: NextApiRequest,
     res: NextApiResponse,

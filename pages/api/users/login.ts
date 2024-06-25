@@ -3,6 +3,70 @@ import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     tags: ['users']
+ *     summary: User login
+ *     description: Authenticates a user and returns a JWT token.
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: john.doe@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: User successfully authenticated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       401:
+ *         description: Unauthorized or validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               examples:
+ *                 invalidCredentials:
+ *                   summary: Invalid Credentials
+ *                   value: { error: 'Email ou mot de passe incorrect' }
+ *                 userDeleted:
+ *                   summary: User Deleted
+ *                   value: { error: 'Utilisateur supprimé' }
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               examples:
+ *                 jwtSecretMissing:
+ *                   summary: JWT Secret Missing
+ *                   value: { error: 'JWT_SECRET manquant' }
+ *                 serverError:
+ *                   summary: Server Error
+ *                   value: { error: 'Internal Server Error' }
+ */
+
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse,

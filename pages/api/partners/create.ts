@@ -2,6 +2,83 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken } from '../verifyToken';
 import { sql } from '@vercel/postgres';
 
+/**
+ * @swagger
+ * /api/partners/create:
+ *   post:
+ *     tags: ['partners']
+ *     summary: Create a new partner
+ *     description: Creates a new partner with the given details.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Partner Name
+ *               website:
+ *                 type: string
+ *                 example: "https://partner-website.com"
+ *               description:
+ *                 type: string
+ *                 example: "This is a partner description."
+ *               user_id:
+ *                 type: string
+ *                 example: "1"
+ *               business_segment_id:
+ *                 type: string
+ *                 example: "2"
+ *             required:
+ *               - name
+ *               - user_id
+ *               - business_segment_id
+ *     responses:
+ *       200:
+ *         description: Partner successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Le partenaire à bien été créé"
+ *       401:
+ *         description: Unauthorized or validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               examples:
+ *                 missingName:
+ *                   summary: Missing Name
+ *                   value: "Nous avons besoin d'un nom pour créer ce type de données"
+ *                 invalidUser:
+ *                   summary: Invalid User
+ *                   value: "L'utilisateur sélectionné n'est pas valide"
+ *                 userAlreadyPartner:
+ *                   summary: User Already Partner
+ *                   value: "L'utilisateur sélectionné est déjà partenaire !"
+ *                 invalidBusinessSegment:
+ *                   summary: Invalid Business Segment
+ *                   value: "Le type de métier sélectionné n'est pas valide"
+ *       500:
+ *         description: Server error or method not allowed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               examples:
+ *                 methodNotAllowed:
+ *                   summary: Method Not Allowed
+ *                   value: "La route n'acceptes que les POST"
+ *                 serverError:
+ *                   summary: Server Error
+ *                   value: "Internal Server Error"
+ */
+
 const handler = async(
     req: NextApiRequest,
     res: NextApiResponse,

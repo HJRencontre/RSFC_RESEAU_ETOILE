@@ -17,7 +17,7 @@ import { sql } from '@vercel/postgres';
  *         schema:
  *           type: string
  *           enum: [asc, desc]
- *         description: Order by ID in ascending or descending order
+ *         description: Order by name in ascending or descending order
  *     responses:
  *       200:
  *         description: A list of partners

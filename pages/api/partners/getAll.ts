@@ -68,13 +68,7 @@ const handler = async (
     try {
         if (req.method === 'GET') {
             const { name } = req.query;
-            let orderClause = '';
-
-            if (name === 'asc') {
-                orderClause = 'ORDER BY name ASC';
-            } else if (name === 'desc') {
-                orderClause = 'ORDER BY name DESC';
-            }
+            const orderClause = name === 'desc' ? "ORDER BY name DESC" : "ORDER BY name ASC";
 
             // Construct the query dynamically
             const query = `SELECT * FROM partners WHERE is_deleted = false ${orderClause}`;

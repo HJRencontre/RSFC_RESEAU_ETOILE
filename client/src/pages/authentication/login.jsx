@@ -1,6 +1,6 @@
 import "./style.css";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../provider/auth.provider";
 import { UserContext } from "../../provider/user.provider";
 import { useContext } from "react";

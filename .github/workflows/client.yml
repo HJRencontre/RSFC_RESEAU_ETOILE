@@ -1,4 +1,4 @@
-name: Next.js CI
+name: React.js CI | client/
 
 on:
   pull_request:
@@ -20,13 +20,9 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: .
+        working-directory: ./client
         run: npm install
 
-      - name: Run lint
-        working-directory: .
-        run: npm run lint
-
       - name: Build project
-        working-directory: .
+        working-directory: ./client
         run: npm run build

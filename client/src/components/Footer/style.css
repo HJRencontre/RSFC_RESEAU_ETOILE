@@ -1,0 +1,101 @@
+footer .c-nav-tool_title {
+  font-weight: 700;
+}
+footer a {
+  text-decoration: none;
+  font-weight: 400;
+  transition: 0.3s ease-in;
+  border-bottom: 1px solid transparent;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+}
+footer a:hover {
+  border-bottom: 1px solid #333;
+}
+footer ul {
+  list-style-type: none;
+  padding: 0;
+}
+footer button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 0;
+  background: transparent;
+}
+footer .flex {
+  display: flex;
+}
+footer .footer_inner {
+  background: #FFF;
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
+  border: 0.1px solid rgba(233, 232, 232, 0.208);
+  border-radius: 5px;
+  padding: 2rem 0;
+  margin: 1rem 0;
+}
+footer .footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+footer .container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+footer form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100%, 400px);
+  border-bottom: 1px solid #333;
+}
+footer input {
+  padding: 0.75rem 0;
+  border: none;
+  background: none;
+  font-weight: 500;
+  transition: border 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  border-radius: 0;
+  width: 100%;
+  font-size: 1.05rem;
+  font-weight: bolder;
+}
+footer input:focus {
+  outline: none;
+}
+footer input::-moz-placeholder {
+  color: #333;
+}
+footer input::placeholder {
+  color: #333;
+}
+@media (min-width: 675px) {
+  footer .layout {
+    display: flex;
+    flex-wrap: nowrap;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+  }
+  footer .w-50 {
+    width: 50%;
+  }
+  footer .w-25 {
+    width: 25%;
+  }
+}
+footer form {
+  position: relative;
+}
+footer svg {
+  margin: 0.5rem;
+}
+footer .c-2 {
+  margin-top: 3.5rem;
+}
+footer .footer_copyright {
+  color: #FFF;
+}/*# sourceMappingURL=style.css.map */

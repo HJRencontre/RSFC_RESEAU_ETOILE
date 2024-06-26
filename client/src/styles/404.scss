@@ -1,0 +1,30 @@
+.error-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    padding-top: 10rem;
+}
+
+.error-title {
+    font-size: 7rem;
+    color: #333;
+}
+
+.error-subtitle {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.error-return a {
+    text-decoration: underline;
+    color: #3498db;
+}
+
+.error-return a:hover {
+    color: #2980b9;
+}

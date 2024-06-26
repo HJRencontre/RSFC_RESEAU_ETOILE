@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyToken } from '../verifyToken';
 import { sql } from '@vercel/postgres';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 
 /**
  * @swagger
@@ -58,16 +58,18 @@ const handler = async (
     if (req.method === 'GET') {
         const token = req.headers.authorization?.split(' ')[1]
 
-        const id = typeof (req.body.id) !== 'undefined' ? req.body.id : req.query.id
-
         if (!token) {
             return res.status(401).json({ error: 'No token provided' })
         }
 
-        try {
-            if (typeof process.env.JWT_SECRET === 'string') {
+        if(!process.env.JWT_SECRET){
+            return res.status(500).json({ error: 'No JWT secret set' })
+        }
 
-                const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        try {
+            if (process.env.JWT_SECRET) {
+
+                const decoded = jwt.verify(token, <Secret>process.env.JWT_SECRET)
 
                 if (typeof decoded !== 'string') {
                     const userId = decoded.userId;

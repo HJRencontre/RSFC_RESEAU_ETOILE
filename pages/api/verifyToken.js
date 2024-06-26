@@ -8,7 +8,7 @@ export const verifyToken = (handler, role = '') => {
         const id = typeof (req.body.id) !== 'undefined' ? req.body.id : req.query.id
 
         if (!token) {
-        return res.status(401).json({ error: 'No token provided' })
+            return res.status(401).json({ error: 'No token provided' })
         }
 
         try {

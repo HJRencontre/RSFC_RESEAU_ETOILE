@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { verifyToken } from '../verifyToken';
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 
@@ -81,10 +82,10 @@ import bcrypt from 'bcryptjs';
  *                   summary: Server Error
  *                   value: "Internal Server Error"
  */
-export default async function handler(
+const handler = async (
     req: NextApiRequest,
     res: NextApiResponse,
-) {
+) => {
     
     try {
         if (req.method === 'POST') {
@@ -146,3 +147,5 @@ function isEmail(email: string):boolean
     console.log(serchfind)
     return serchfind
 }
+
+export default verifyToken(handler, 'ADMIN');

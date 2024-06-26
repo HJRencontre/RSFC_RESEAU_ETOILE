@@ -68,14 +68,17 @@ const handler = async (
     try {
         if (req.method === 'GET') {
             const { name } = req.query;
-            const orderClause = name === 'desc' ? "ORDER BY name DESC" : "ORDER BY name ASC";
-
+            const orderClause = name === 'asc' ? 'ORDER BY name ASC' :
+                                name === 'desc' ? 'ORDER BY name DESC' :
+                                '';
+        
             // Construct the query dynamically
             const query = `SELECT * FROM partners WHERE is_deleted = false ${orderClause}`;
             const result = await sql.query(query);
             const rows = result.rows;
             return res.status(200).json({ rows });
         }
+        
     } catch (error) {
         return res.status(500).json({ error });
     }

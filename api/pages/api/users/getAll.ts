@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method === "GET") {
       const result =
-        await sql`SELECT firstname, lastname, email FROM users WHERE is_deleted = false`;
+        await sql`SELECT id, firstname, lastname, email FROM users WHERE is_deleted = false`;
       const rows = result.rows;
 
       return res.status(200).json({ rows });

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sql } from "@vercel/postgres";
 import { verifyToken } from "../verifyToken";
+import bcrypt from 'bcryptjs';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -25,6 +26,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const rows = result.rows;
 
         return res.status(200).json("L'utilisateur à bien été supprimé.");
+      }
+      if (req.method === "PUT") {
+        const { firstname, lastname, password, phone_number, email, role } = req.body;
+
+        // Hash the password if provided
+        let hashedPassword;
+        if (password) {
+          hashedPassword = await bcrypt.hash(password, 10);
+        }
+
+        const result = await sql`UPDATE users
+        SET
+        firstname = ${firstname},
+        lastname = ${lastname},
+        phone_number = ${phone_number},
+        email = ${email},
+        role = ${role},
+        password = ${hashedPassword},
+        WHERE id = ${id} AND is_deleted = false`;
+
+        return res.status(200).json("L'utilisateur à bien été modifié.");
       }
     }
   } catch (error) {

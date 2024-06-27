@@ -5,7 +5,7 @@ export const verifyToken = (handler, role = "") => {
   return async (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
 
-    const id = typeof req.body.id !== "undefined" ? req.body.id : req.query.id;
+    const id = req.body?.id ? req.body?.id : req.query.id;
 
     if (!token) {
       return res.status(401).json({ error: "No token provided" });

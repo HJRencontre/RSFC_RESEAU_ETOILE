@@ -20,6 +20,10 @@ const UserContextProvider = ({ children }) => {
     } else {
       const fetchData = async () => {
         try {
+          if (!localStorage.getItem("token")) {
+            setIsFetched(true);
+            return;
+          }
           fetch("/v1/api/users/me", {
             method: "GET",
             headers: {
@@ -31,11 +35,13 @@ const UserContextProvider = ({ children }) => {
               return res.json();
             })
             .then((data) => {
-              updateUser(data.user);
+              if(data.user === null || data.user === undefined) {
+                updateUser(data.user);
+              }
               setIsFetched(true);
             })
             .catch((err) => {
-              console.log(err);
+              console.error(err);
             });
         } catch (error) {
           console.error(

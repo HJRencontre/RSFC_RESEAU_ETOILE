@@ -30,12 +30,14 @@ export default function Login({ addError }) {
       })
       .then((data) => {
         if (data.message) return addError(data.message);
-        setToken(data.token);
-        updateUser(data.user);
-        navigate("/", { replace: true });
+        if (data.token) {
+          setToken(data.token);
+          updateUser(data.user);
+          navigate("/", { replace: true });
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -43,7 +45,7 @@ export default function Login({ addError }) {
     <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-full max-w-5xl"
+      className="login"
       exit={{ opacity: 0 }}
       transition={{
         type: "linear",
@@ -51,12 +53,26 @@ export default function Login({ addError }) {
         damping: 20,
       }}
     >
-      <h1>Connexion</h1>
+      <style>
+        {`body{background:#044336}#root{display:flex;flex-direction:column;height:100vh;width:100vw}`}
+      </style>
+      <motion.div
+        initial={{ translateY: 300, opacity: 0 }}
+        animate={{ translateY: 0, opacity: 1 }}
+        transition={{
+          delay: 0.25,
+          type: "tween",
+          stiffness: 120,
+          duration: 0.25,
+        }}
+        className="login-logo"
+      >
+        <img src="/logo-pro.png" alt="logo" />
+      </motion.div>
       <form method="post">
-        <legend>
-          Entrez dans votre espace personnel avec notre interface de connexion
-          sécurisée.
-        </legend>
+        <h1>Connexion</h1>
+        <p className="header">Pour accéder à votre espace privé</p>
+        <p>saisissez votre email et votre mot de passe.</p>
         <input
           type="email"
           name="email"
@@ -73,13 +89,14 @@ export default function Login({ addError }) {
           required
         />
 
-        <input
-          className="button"
-          type="submit"
-          value="Connectez-vous"
-          onClick={handleSubmit}
-        />
+        <button type="submit" onClick={handleSubmit}>
+          Se connecter
+        </button>
       </form>
+      <div className="login-legal">
+        <a href="/mentions-légales">Mention légales</a>
+        <a href="/politique-de-confidentialité">Politique de confidentialité</a>
+      </div>
     </motion.main>
   );
 }

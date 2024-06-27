@@ -1,14 +1,18 @@
+import { verifyToken } from '../verifyToken';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 import { NextApiRequest, NextApiResponse } from 'next';
-import { verifyToken } from "../verifyToken";
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 
 /**
  * @swagger
- * /api/users/register:
+ * /api/users/invite:
  *   post:
  *     tags: ['users']
- *     summary: Create a new user
+ *     summary: Create a new user by sending them an e-mail
  *     description: Creates a new user with the given details.
  *     security: []
  *     requestBody:
@@ -82,49 +86,65 @@ import bcrypt from 'bcryptjs';
  *                   summary: Server Error
  *                   value: "Internal Server Error"
  */
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    if (req.method === "POST") {
-      const { firstname, lastname, password, phone_number, email, role } =
-        req.body;
+const handler = async (
+    req: NextApiRequest,
+    res: NextApiResponse,
+) => {
+    
+    try {
+        if (req.method === 'POST') {
+            const { firstname, lastname, password, phone_number, email, role } = req.body
+            
+            if (!firstname) {
+                return res.status(401).json('Le champs prénom doit être rempli')
+            }
 
-      if (role !== "ADMIN" && role !== "PARTNER_REPRESENTATIVE") {
-        return res
-          .status(401)
-          .json(
-            "Le role ne peut pas être autre chose que ADMIN ou PARTNER_REPRESENTATIVE"
-          );
-      }
+            if (!lastname) {
+                return res.status(401).json('Le champs nom de famille doit être rempli')
+            }
 
-      if (!isEmail(email)) {
-        return res.status(401).json("L'email saisie est incorrect");
-      }
+            if (!phone_number) {
+                return res.status(401).json('Le champs numéro de téléphone doit être rempli')
+            }
 
-      const userAlreadyExist =
-        await sql`SELECT * FROM users WHERE email = ${email}`;
+            if (role !== 'ADMIN' && role !== 'PARTNER_REPRESENTATIVE') {
+                return res.status(401).json('Le role ne peut pas être autre chose que ADMIN ou PARTNER_REPRESENTATIVE')
+            }
+            
+            if (!isEmail(email)) {
+                return res.status(401).json( 'L\'email saisie est incorrect' )
+            }
 
-      if (userAlreadyExist.rows.length > 0) {
-        return res.status(401).json("L'email saisie est déjà utilisée");
-      }
+            const userAlreadyExist = await sql`SELECT * FROM users WHERE email = ${email}`
 
-      bcrypt.hash(password, 10, async (err, hash) => {
-        if (err) {
-          console.error("Erreur lors du hachage du mot de passe:", err);
-          return;
+            if (userAlreadyExist.rows.length > 0) {
+                return res.status(401).json('L\'email saisie est déjà utilisée')
+            }
+
+            bcrypt.hash(password, 10, async (err, hash) => {
+                if (err) {
+                    console.error('Erreur lors du hachage du mot de passe:', err)
+                    return
+                }
+
+                const result = await sql`INSERT INTO users (firstname, lastname, password, phone_number, email, role) VALUES (${firstname}, ${lastname}, ${hash}, ${phone_number}, ${email}, ${role}) RETURNING id`
+
+                resend.emails.send({
+                    from: 'onboarding@resend.dev',
+                    to: email,
+                    subject: 'Création de compte Réseau Etoile (Red Star)',
+                    html: `<p>Bienvenue sur le réseau étoile</p><p>Votre e-mail : ${email}</p><p>Mot de passe : ${password}</p><p>N'oubliez pas de modifier votre mot de passe après la première connexion</p>`
+                  });
+                return res.status(200).json('L\'utilisateur à bien été créée')
+            });
         }
-
-        const result =
-          await sql`INSERT INTO users (firstname, lastname, password, phone_number, email, role) VALUES (${firstname}, ${lastname}, ${hash}, ${phone_number}, ${email}, ${role}) RETURNING id`;
-
-        return res.status(200).json("L'utilisateur à bien été créée");
-      });
-    } else {
-      return res.status(500).json("La route n'acceptes que les POST");
+        else {
+            return res.status(500).json( 'La route n\'acceptes que les POST' )
+        }
+    } catch (error) {
+        return res.status(500).json({ error })
     }
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
-};
+}
 
 function isEmail(email: string):boolean
 {
@@ -138,4 +158,4 @@ function isEmail(email: string):boolean
     return serchfind
 }
 
-export default verifyToken(handler, "ADMIN");
+export default verifyToken(handler, 'ADMIN');

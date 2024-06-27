@@ -52,7 +52,7 @@ import { verifyToken } from '../verifyToken';
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: id
  *         required: true
  *         schema:
@@ -73,14 +73,14 @@ import { verifyToken } from '../verifyToken';
  *             schema:
  *               type: string
  *               example: "Internal Server Error"
- *   patch:
+ *   put:
  *     tags: ['partners']
  *     summary: Update a partner
  *     description: Updates a partner by ID.
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: id
  *         required: true
  *         schema:

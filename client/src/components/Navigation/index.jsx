@@ -36,16 +36,10 @@ export default function Header() {
             </a>
           </li>
           <li>
-            <a href="/cart">
-              <FontAwesomeIcon icon={faShoppingCart} />
-              Mon panier
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" onClick={handleLogout}>
+            <button onClick={handleLogout}>
               <FontAwesomeIcon icon={faPowerOff} />
               Se déconnecter
-            </a>
+            </button>
           </li>
         </ul>
         <FontAwesomeIcon className="only-mobile" icon={faShoppingCart} />

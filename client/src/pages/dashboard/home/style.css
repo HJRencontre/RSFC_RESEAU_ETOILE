@@ -1,13 +1,79 @@
 .hero {
   width: 100%;
-  margin-top: 2rem;
 }
 .hero img {
   width: 100%;
-  border-radius: 16px;
 }
 
-.offer {
+.offers {
+  margin-top: 4rem;
+}
+.offers h2 {
+  color: #FFF;
+  margin-bottom: 1rem;
+}
+.offers-list {
   width: 100%;
-  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.offers-list .offer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  width: calc(25% - 0.75rem);
+  background: #FFF;
+  text-align: left;
+}
+.offers-list .offer-load {
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  width: calc(25% - 0.75rem);
+  background: rgba(255, 255, 255, 0.5);
+  text-align: left;
+}
+.offers-list .offer-load h1 {
+  display: block;
+  width: 60%;
+  height: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+.offers-list .offer-load p {
+  display: block;
+  width: 100%;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+}
+.offers-list .offer h1 {
+  white-space: break-spaces;
+}
+.offers-list .offer p {
+  white-space: break-spaces;
+  font-size: 0.75rem;
+}
+.offers .toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+.offers .toolbar button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: #FFF;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    margin-top: 2rem;
+  }
+  .hero img {
+    border-radius: 16px;
+  }
 }/*# sourceMappingURL=style.css.map */

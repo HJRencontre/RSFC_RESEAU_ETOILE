@@ -1,5 +1,5 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useAuth } from "./provider/auth.provider";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {useAuth} from "./provider/auth.provider";
 
 import Login from "./pages/authentication/login";
 
@@ -10,27 +10,28 @@ import TermsOfUse from "./pages/legal/terms-of-use";
 import LegalNotice from "./pages/legal/legal-notice";
 import PrivacyPolicy from "./pages/legal/privacy-policy";
 import NotFound from "./pages/404";
+import AdminDashboard from "./pages/admin";
 
 const Routes = () => {
-  const { token } = useAuth();
+  const {token} = useAuth();
 
   // Define public routes accessible to all users
   const routesForPublic = [
     {
       path: "/conditions-générales-utilisation",
-      element: <TermsOfUse />,
+      element: <TermsOfUse/>,
     },
     {
       path: "/mentions-légales",
-      element: <LegalNotice />,
+      element: <LegalNotice/>,
     },
     {
       path: "/politique-de-confidentialité",
-      element: <PrivacyPolicy />,
+      element: <PrivacyPolicy/>,
     },
     {
       path: "*",
-      element: <NotFound />,
+      element: <NotFound/>,
     },
   ];
 
@@ -38,21 +39,25 @@ const Routes = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <Dashboard />,
+      element: <Dashboard/>,
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <Home/>,
         },
       ],
     },
+    {
+      path: "/admin",
+      element: <AdminDashboard/>,
+    }
   ];
 
   // Define routes accessible only to non-authenticated users
   const routesForNotAuthenticatedOnly = [
     {
       path: "/login",
-      element: <Login />,
+      element: <Login/>,
     }
   ];
 
@@ -64,7 +69,7 @@ const Routes = () => {
   ]);
 
   // Provide the router configuration using RouterProvider
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router}/>;
 };
 
 export default Routes;

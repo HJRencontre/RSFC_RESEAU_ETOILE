@@ -1,8 +1,13 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, {createContext, useEffect, useState} from "react";
 
+export const UserRole = {
+  MASTER: 'MASTER',
+  ADMIN: 'ADMIN',
+  PARTNER_REPRESENTATIVE: 'PARTNER_REPRESENTATIVE'
+}
 export const UserContext = createContext(); // Créez un contexte UserContext
 
-const UserContextProvider = ({ children }) => {
+const UserContextProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [isFetched, setIsFetched] = useState(false);
 
@@ -35,7 +40,7 @@ const UserContextProvider = ({ children }) => {
               return res.json();
             })
             .then((data) => {
-              if(data.user === null || data.user === undefined) {
+              if (data.user === null || data.user === undefined) {
                 updateUser(data.user);
               }
               setIsFetched(true);
@@ -57,7 +62,7 @@ const UserContextProvider = ({ children }) => {
   }, [isFetched]);
 
   return (
-    <UserContext.Provider value={{ user, updateUser }}>
+    <UserContext.Provider value={{user, updateUser}}>
       {children}
     </UserContext.Provider>
   );

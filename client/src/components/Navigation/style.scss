@@ -23,12 +23,17 @@
         gap: 1rem;
         li {
             margin: 0;
-            a {
+            a,
+            button {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: .5rem;
                 gap: .75rem;
+                background: transparent;
+                border: none;
+                color: inherit;
+                font-size: inherit;
             }
         }
     }
@@ -61,9 +66,12 @@
 @media (min-width: 768px) {
     .nav {
         padding: 1rem;
-        .nav-list {
+        .nav-list,
+        .nav-list.active {
             position: relative;
             display: flex;
+            flex-direction: row;
+            padding: 0;
         }
     }
 }

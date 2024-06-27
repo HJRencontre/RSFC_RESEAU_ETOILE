@@ -6,7 +6,7 @@
 }
 
 .offers {
-  margin-top: 4rem;
+  margin: 4rem 2rem 0;
 }
 .offers h2 {
   color: #FFF;
@@ -15,6 +15,7 @@
 .offers-list {
   width: 100%;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -22,7 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  width: calc(25% - 0.75rem);
+  width: 100%;
   background: #FFF;
   text-align: left;
 }
@@ -31,9 +32,11 @@
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  width: calc(25% - 0.75rem);
+  width: 100%;
   background: rgba(255, 255, 255, 0.5);
   text-align: left;
+  color: transparent;
+  font-size: 0;
 }
 .offers-list .offer-load h1 {
   display: block;
@@ -75,5 +78,15 @@
   }
   .hero img {
     border-radius: 16px;
+  }
+  .offers {
+    margin: 4rem 0 0;
+  }
+  .offers-list {
+    flex-direction: row;
+  }
+  .offers .offer,
+  .offers .offer-load {
+    width: calc(25% - 0.75rem);
   }
 }/*# sourceMappingURL=style.css.map */

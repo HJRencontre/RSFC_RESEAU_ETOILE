@@ -3,8 +3,8 @@ import { useAuth } from "./provider/auth.provider";
 
 import Login from "./pages/authentication/login";
 
-import Dashboard from "./pages/account/layout";
-import Profil from "./pages/account/profile/index";
+import Dashboard from "./pages/dashboard/layout";
+import Home from "./pages/dashboard/home/index";
 
 import TermsOfUse from "./pages/legal/terms-of-use";
 import LegalNotice from "./pages/legal/legal-notice";
@@ -42,7 +42,7 @@ const Routes = () => {
       children: [
         {
           path: "/",
-          element: <Profil />,
+          element: <Home />,
         },
       ],
     },

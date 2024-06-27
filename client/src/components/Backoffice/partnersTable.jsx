@@ -2,8 +2,6 @@ import {useEffect, useState} from "react";
 
 export default function PartnersTable() {
   const [partners, setPartners] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("/v1/api/partners/getAll", {
@@ -21,11 +19,9 @@ export default function PartnersTable() {
       })
       .then(data => {
         setPartners(data);
-        setLoading(false);
       })
       .catch(error => {
-        setError(error);
-        setLoading(false);
+        console.error('There has been a problem with your fetch operation:', error);
       });
   }, []);
 

@@ -12,6 +12,7 @@ import LegalNotice from "./pages/legal/legal-notice";
 import PrivacyPolicy from "./pages/legal/privacy-policy";
 import NotFound from "./pages/404";
 import AdminDashboard from "./pages/admin";
+import AccountDashboard from "./pages/account";
 
 const Routes = () => {
   const {token} = useAuth();
@@ -54,8 +55,12 @@ const Routes = () => {
     },
     {
       path: "/admin",
-      element: <AdminDashboard />,
+      element: <AdminDashboard/>,
     },
+    {
+      path: "/account",
+      element: <AccountDashboard/>
+    }
   ];
 
   // Define routes accessible only to non-authenticated users

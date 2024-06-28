@@ -9,6 +9,29 @@ export default function Offer() {
   const [offer, setOffer] = useState({});
   const [partner, setPartner] = useState({});
 
+   const findPartner = (pid) => {
+     try {
+       fetch(`/v1/api/partners/${pid}`, {
+         method: "GET",
+         headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${token}`,
+         },
+       })
+         .then((res) => {
+           return res.json();
+         })
+         .then((data) => {
+           if (data) setPartner(data.partner);
+         })
+         .catch((err) => {
+           console.error(err);
+         });
+     } catch (err) {
+       console.error(err);
+     }
+   };
+  
   useEffect(() => {
     try {
       fetch(`/v1/api/offers/${id}`, {
@@ -32,30 +55,8 @@ export default function Offer() {
     } catch (err) {
       console.error(err);
     }
-  }, [id]);
-
-  const findPartner = (pid) => {
-    try {
-      fetch(`/v1/api/partners/${pid}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          if (data) setPartner(data.partner);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, token]);
 
   return (
     <motion.main
@@ -91,7 +92,7 @@ export default function Offer() {
           <p class="partner-name">{partner.name}</p>
           <p class="partner-description">{partner.description}</p>
           <p class="partner-website">
-            <a href="https://financellc.com" target="_blank">
+            <a href="https://financellc.com" target="_blank" rel="noreferrer">
               {partner.website}
             </a>
           </p>

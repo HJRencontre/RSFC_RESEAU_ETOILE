@@ -3,6 +3,7 @@ import {useAuth} from "../../provider/auth.provider";
 import Header from "../../components/Navigation";
 import Partners from "../../components/Common/Partners";
 import Events from "../../components/Common/Events";
+import Invite from "../../components/Common/Invite";
 
 export default function AdminDashboard() {
   const {token} = useAuth();
@@ -14,6 +15,7 @@ export default function AdminDashboard() {
   return (
     <>
       <Header/>
+      <Invite/>
       <Events/>
       <Partners/>
       <Outlet/>

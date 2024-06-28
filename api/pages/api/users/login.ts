@@ -97,7 +97,7 @@ export default async function handler(
 
       if (process.env.JWT_SECRET) {
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: "8h",
         });
         res.status(200).json({ token, user });
       } else {

@@ -1,7 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
 import {useAuth} from "../../provider/auth.provider";
 import Header from "../../components/Navigation";
-import PartnersTable from "../../components/Backoffice/partnersTable";
+import Partners from "../../components/Common/Partners";
 import Events from "../../components/Common/Events";
 
 export default function AdminDashboard() {
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
     <>
       <Header/>
       <Events/>
-      <PartnersTable/>
+      <Partners/>
       <Outlet/>
     </>
   );

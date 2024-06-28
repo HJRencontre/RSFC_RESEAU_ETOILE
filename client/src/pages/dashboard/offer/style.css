@@ -1,0 +1,55 @@
+.offer-details {
+  margin: 50px auto;
+  padding: 20px;
+}
+.offer-details h1.offer-label {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+.offer-details p.offer-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+.offer-details img.offer-picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+.offer-details .offer-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.offer-details .offer-info span {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+.offer-details .offer-info span.offer-id {
+  font-weight: bold;
+}
+.offer-details .offer-info span.offer-discount {
+  color: #d9534f;
+}
+.offer-details .partner-details {
+  border-top: 1px solid #FFF;
+  padding: 1rem 0;
+}
+.offer-details .partner-details h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+.offer-details .partner-details p {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+.offer-details .partner-details p.partner-name {
+  font-weight: bold;
+}
+.offer-details .partner-details p.partner-website a {
+  color: #337ab7;
+  text-decoration: none;
+}
+.offer-details .partner-details p.partner-website a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=style.css.map */

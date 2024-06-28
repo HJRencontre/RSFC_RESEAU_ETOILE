@@ -5,6 +5,7 @@ import Login from "./pages/authentication/login";
 
 import Dashboard from "./pages/dashboard/layout";
 import Home from "./pages/dashboard/home/index";
+import Offer from "./pages/dashboard/offer/index";
 
 import TermsOfUse from "./pages/legal/terms-of-use";
 import LegalNotice from "./pages/legal/legal-notice";
@@ -40,11 +41,15 @@ const Routes = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <Dashboard/>,
+      element: <Dashboard />,
       children: [
         {
           path: "/",
-          element: <Home/>,
+          element: <Home />,
+        },
+        {
+          path: "/offer/:id",
+          element: <Offer />,
         },
       ],
     },

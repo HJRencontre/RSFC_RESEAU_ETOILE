@@ -16,7 +16,6 @@ services:
     build: ./api
     volumes:
       - ./api/:/app/src
-      - ./.env:/app/.env.local
     ports:
       - "3001:80"
 

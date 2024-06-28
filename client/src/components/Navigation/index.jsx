@@ -29,10 +29,12 @@ export default function Header() {
     <nav className="nav">
       <div className="nav-inner">
         {user && (
-          <p className="only-desktop">
-            {user.firstname}
-            <span className="uppercase">&nbsp;{user.lastname}</span>
-          </p>
+          <a href="/">
+            <p className="only-desktop">
+              {user.firstname}
+              <span className="uppercase">&nbsp;{user.lastname}</span>
+            </p>
+          </a>
         )}
         <ul className={menu ? "nav-list active" : "nav-list"}>
           {isUserAdmin && (

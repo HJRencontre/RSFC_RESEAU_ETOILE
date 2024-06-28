@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext, useState } from "react";
 import { useAuth } from "../../provider/auth.provider";
-import { UserContext, UserRole } from "../../provider/user.provider";
+import { UserContext } from "../../provider/user.provider";
 import Header from "../../components/Navigation";
 import "./style.css";
 

@@ -18,7 +18,7 @@ export default function Events() {
         return response.json();
       })
       .then(data => {
-        setEvents(data);
+        setEvents(data.rows);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);

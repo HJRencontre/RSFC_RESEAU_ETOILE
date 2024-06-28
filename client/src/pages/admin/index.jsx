@@ -1,6 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
 import {useAuth} from "../../provider/auth.provider";
 import Header from "../../components/Navigation";
+import Events from "../../components/Common/Events";
 
 export default function AdminDashboard() {
   const {token} = useAuth();
@@ -12,6 +13,7 @@ export default function AdminDashboard() {
   return (
     <>
       <Header/>
+      <Events/>
       <Outlet/>
     </>
   );

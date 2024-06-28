@@ -1,0 +1,114 @@
+.login {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.login form {
+  position: relative;
+  z-index: 1;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+}
+.login form p {
+  text-align: center;
+  padding: 0 1rem;
+  display: inline-block;
+}
+.login form p.header {
+  color: black;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+}
+.login form h1 {
+  position: relative;
+  width: 50%;
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.login form h1::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  background: #CCC;
+}
+.login form button {
+  background: #044336;
+  color: #FFF;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+  margin: 1rem auto;
+  width: 90%;
+  padding: 1rem;
+}
+.login form button:hover, .login form button:focus {
+  background: #033026;
+  outline: none;
+}
+.login form input {
+  border: none;
+  border-bottom: 1px solid #CCC;
+  background: none;
+  color: #044336;
+  padding: 1rem;
+  font-size: 16px;
+  border-radius: 0;
+}
+.login form input:first-of-type {
+  border-top: 1px solid #CCC;
+  margin-top: 2rem;
+}
+.login form input:focus {
+  outline: none;
+  background: #F5F5F5;
+}
+.login form input:-webkit-autofill, .login form input:-webkit-autofill:focus, .login form input:-webkit-autofill:hover {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: #044336;
+  font-size: 16px;
+}
+.login-legal {
+  display: flex;
+  margin-top: 1rem;
+}
+.login-legal a {
+  color: #FFF;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+}
+.login-logo {
+  position: relative;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 100px;
+  z-index: 0;
+}
+.login-logo img {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .login form button {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 1rem 4rem;
+  }
+  .login-logo {
+    max-width: 200px;
+  }
+}/*# sourceMappingURL=style.css.map */

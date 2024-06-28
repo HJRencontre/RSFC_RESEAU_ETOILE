@@ -1,8 +1,5 @@
 import { verifyToken } from '../verifyToken';
 import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
@@ -92,6 +89,7 @@ const handler = async (
 ) => {
     
     try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
         if (req.method === 'POST') {
             const { firstname, lastname, password, phone_number, email, role } = req.body
             

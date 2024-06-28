@@ -51,9 +51,9 @@ export default function Home() {
         damping: 20,
       }}
     >
-      <div className="hero">
+      {/* <div className="hero">
         <img src="/hero.jpg" alt="" />
-      </div>
+      </div> */}
 
       <section className="offers">
         <div className="toolbar">
@@ -69,6 +69,7 @@ export default function Home() {
             offers.slice(0, visibleOffers).map((offer, index) => (
               <a href={"/offer/" + offer.id} className="offer">
                 <article key={index}>
+                  <img src={offer.picture} alt="" />
                   <h1>{offer.label}</h1>
                   <p>{offer.description}</p>
                 </article>

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sql } from "@vercel/postgres";
 import { verifyToken } from "../verifyToken";
+import bcrypt from 'bcryptjs';
 
 /**
  * @swagger
@@ -151,6 +152,66 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const rows = result.rows;
 
         return res.status(200).json("L'utilisateur à bien été supprimé.");
+      }
+      if (req.method === "PUT") {
+        let { firstname, lastname, old_password, new_password, phone_number, email } = req.body;
+        const getCurrentUser = await sql`SELECT * FROM users WHERE is_deleted = false AND id = ${id}`;
+        const rows = getCurrentUser.rows;
+        const currentUser = rows[0];
+
+        if (!firstname) {
+          firstname = currentUser.firstname
+        }
+        if (!lastname) {
+          lastname = currentUser.lastname
+        }
+        if (!phone_number) {
+          phone_number = currentUser.phone_number
+        }
+        if (!email) {
+          email = currentUser.email
+        }
+
+        // Hash the password if provided
+        if (old_password && new_password) {
+          const isPasswordMatch   = await bcrypt.compare(old_password, currentUser.password)
+
+                if (!isPasswordMatch) {
+                    return res.status(401).json('L\'ancien mot de passe ne correspond pas.');
+                }
+
+                if (old_password === new_password) {
+                    return res.status(401).json('Les deux mots de passes sont identiques.');
+                }
+
+                bcrypt.hash(new_password, 10, async (err, hash) => {
+                    if (err) {
+                        console.error('Erreur lors du hachage du mot de passe:', err)
+                        return
+                    }
+    
+                    const result = await sql`UPDATE users
+                                              SET
+                                              firstname = ${firstname},
+                                              lastname = ${lastname},
+                                              phone_number = ${phone_number},
+                                              email = ${email},
+                                              password = ${hash},
+                                              WHERE id = ${id} AND is_deleted = false`;
+    
+                    return res.status(200).json('L\'utilisateur à bien été modifié')
+                });
+        }
+        
+        const result = await sql`UPDATE users
+        SET
+        firstname = ${firstname},
+        lastname = ${lastname},
+        phone_number = ${phone_number},
+        email = ${email},
+        WHERE id = ${id} AND is_deleted = false`;
+
+        return res.status(200).json("L'utilisateur à bien été modifié.");
       }
     }
   } catch (error) {

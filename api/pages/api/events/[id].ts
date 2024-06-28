@@ -38,7 +38,11 @@ import { verifyToken } from "../verifyToken";
  *                     description:
  *                       type: string
  *                       example: "Event Description"
- *                     date:
+ *                     start_date:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2023-01-01T00:00:00Z"
+ *                     end_date:
  *                       type: string
  *                       format: date-time
  *                       example: "2023-01-01T00:00:00Z"

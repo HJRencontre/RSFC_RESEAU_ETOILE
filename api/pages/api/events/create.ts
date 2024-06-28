@@ -24,17 +24,17 @@ import { sql } from "@vercel/postgres";
  *               description:
  *                 type: string
  *                 example: "Celebration to welcome the new year."
- *               start_at:
+ *               start_date:
  *                 type: string
  *                 format: date-time
  *                 example: "2023-12-31T23:59:59Z"
- *               end_at:
+ *               end_date:
  *                 type: string
  *                 format: date-time
  *                 example: "2024-01-01T01:00:00Z"
  *             required:
  *               - title
- *               - start_at
+ *               - start_date
  *     responses:
  *       200:
  *         description: Event successfully created
@@ -74,7 +74,7 @@ import { sql } from "@vercel/postgres";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method === "POST") {
-      const { title, description, start_at, end_at } = req.body;
+      const { title, description, start_date, end_date } = req.body;
 
       if (title === "" || typeof title === "undefined") {
         return res
@@ -82,7 +82,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           .json("Nous avons besoin d'un titre pour créer ce type de données");
       }
 
-      if (start_at === "" || typeof start_at === "undefined") {
+      if (start_date === "" || typeof start_date === "undefined") {
         return res
           .status(401)
           .json(
@@ -91,7 +91,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const result =
-        await sql`INSERT INTO events (title, description, start_at, end_at ) VALUES (${title}, ${description}, ${start_at}, ${end_at}) RETURNING id`;
+        await sql`INSERT INTO events (title, description, start_date, end_date ) VALUES (${title}, ${description}, ${start_date}, ${end_date}) RETURNING id`;
 
       return res.status(200).json("L'évènement à bien été créée");
     } else {

@@ -39,12 +39,12 @@ export default function Header() {
         <ul className={menu ? "nav-list active" : "nav-list"}>
           {isUserAdmin && (
             <li>
-              <a href="/admin">
-                <FontAwesomeIcon icon={faShoppingCart}/>
-                Administrateur
-              </a>
+              <a href="/admin">Administrateur</a>
             </li>
           )}
+          <li>
+            <a href="/">Accueil</a>
+          </li>
           <li>
             <a href="/account">
               <FontAwesomeIcon icon={faUser} />
@@ -58,11 +58,15 @@ export default function Header() {
             </button>
           </li>
         </ul>
-        <FontAwesomeIcon className="only-mobile" icon={faShoppingCart}/>
+        <FontAwesomeIcon className="only-mobile" icon={faShoppingCart} />
         <div className="only-mobile logo">
-          <img src="/logo-pro.png" alt=""/>
+          <img src="/logo-pro.png" alt="" />
         </div>
-        <FontAwesomeIcon className="only-mobile" icon={faBars} onClick={handleMenu}/>
+        <FontAwesomeIcon
+          className="only-mobile"
+          icon={faBars}
+          onClick={handleMenu}
+        />
       </div>
     </nav>
   );

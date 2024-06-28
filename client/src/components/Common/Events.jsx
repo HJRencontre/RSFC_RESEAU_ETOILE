@@ -1,38 +1,22 @@
-import {useEffect, useState} from "react";
+import {useFetch} from "../../hooks/useFetch";
 
 export default function Events() {
-  const [events, setEvents] = useState([]);
+  const {data: eventData, error} = useFetch("/v1/api/events/getAll");
 
-  useEffect(() => {
-    fetch("/v1/api/events/getAll", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setEvents(data.rows);
-      })
-      .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-  }, []);
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
-  console.log('events', events)
+  if (!eventData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <div>
         <h1>Events List</h1>
         <ul>
-          {events.map(event => (
+          {eventData.map(event => (
             <li key={event.id}>
               <h2>{event.name}</h2>
               <p>{event.description}</p>

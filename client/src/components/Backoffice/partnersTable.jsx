@@ -18,7 +18,7 @@ export default function PartnersTable() {
         return response.json();
       })
       .then(data => {
-        setPartners(data);
+        setPartners(data.rows);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
